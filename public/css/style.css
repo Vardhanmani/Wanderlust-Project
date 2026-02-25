@@ -1,0 +1,225 @@
+/* GLOBAL */
+
+body {
+  font-family: "Buda", serif !important;
+  font-weight: 600 !important;
+  font-style: normal !important;
+
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.container {
+  flex: 1;
+}
+
+
+/* NAVBAR */
+
+.navbar {
+  height: 5rem;
+}
+
+.fa-compass {
+  color: #a52a2a;
+  font-size: 2rem;
+}
+
+.nav-link {
+  color: black !important;
+}
+
+
+/* FOOTER */
+
+.f-info {
+  text-align: center;
+  height: 8rem;
+  background-color: azure;
+
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;      /* ✅ FIXED (space-evenly was invalid) */
+}
+
+.f-info-links {
+  width: 100%;
+}
+
+.f-info-links a {
+  text-decoration: none;
+  color: black;
+  margin-right: 0.5rem;
+}
+
+.f-info-links a:hover {
+  text-decoration: underline;
+}
+
+.f-info-social {
+  width: 100%;
+  font-size: 1.2rem;
+}
+
+.f-info-social i {
+  margin-right: 0.8rem;
+}
+
+
+/* LISTING CARDS */
+
+.listing-card {
+  border: none !important;
+  margin-bottom: 2rem;
+}
+
+.card-img-top {
+  border-radius: 1rem;
+  width: 100% !important;
+  object-fit: cover !important;
+}
+
+.card-body {
+  padding: 0 !important;
+}
+
+.listing-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+
+/* CARD HOVER EFFECT */
+
+.card-img-overlay {
+  opacity: 0;
+  transition: 0.2s ease;
+}
+
+.card-img-overlay:hover {
+  opacity: 0.2;
+  background-color: black;
+}
+
+
+/* SHOW PAGE IMAGE */
+
+.show-img {
+  height: 30vh;
+  object-fit: cover;
+}
+
+
+/* FILTER BAR (AIRBNB STYLE) */
+
+#filters {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding: 1rem 0;
+
+  scrollbar-width: none;
+  position: sticky;       
+  top: 0;
+  background: white;
+  z-index: 10;
+}
+
+#filters::-webkit-scrollbar {
+  display: none;
+}
+
+
+/* FILTER ITEMS */
+
+.filter {
+  text-align: center;
+  opacity: 0.7;
+  min-width: 80px;
+  flex-shrink: 0;
+  transition: 0.2s ease;
+}
+
+.filter:hover {
+  opacity: 1;
+  cursor: pointer;
+  transform: scale(1.05);
+}
+
+.filter i {
+  font-size: 1.3rem;
+}
+
+.filter p {
+  font-size: 0.75rem;
+  margin-top: 0.3rem;
+}
+
+
+/* TAX TOGGLE FIX */
+
+.tax-toggle {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  margin-left: auto;     
+}
+.listing-header {
+  display: flex;
+  align-items: center;
+}
+
+.tax-toggle {
+  margin-left: auto;  
+}
+.tax-toggle{
+    border: 1px solid black;
+    border-radius: 1rem;
+    height: 3rem;
+}
+.tax-info {
+    display: none;
+}
+.btn-search {
+  background-color: #d54343;
+  color: white;
+  border-radius: 25px;
+  padding: 0 1rem;
+  border: none;
+
+  display: flex;              
+  align-items: center;        
+  gap: 0.4rem;                
+}
+
+.btn-search i {
+  margin: 0;                  
+}
+
+/* RESPONSIVE IMPROVEMENTS */
+
+@media (max-width: 768px) {
+
+  .navbar {
+    height: auto;
+  }
+
+  .filter {
+    min-width: 70px;
+  }
+
+  .filter i {
+    font-size: 1.1rem;
+  }
+
+  .filter p {
+    font-size: 0.7rem;
+  }
+
+  .show-img {
+    height: 25vh;
+  }
+}
