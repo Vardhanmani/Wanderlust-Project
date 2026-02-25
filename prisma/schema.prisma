@@ -17,40 +17,36 @@ model Listing {
   price       Float
   imageUrl    String?
 
-  ownerId String
-  owner   User @relation(fields: [ownerId], references: [id])
+  ownerId     String
+  owner       User     @relation(fields: [ownerId], references: [id])
 
-  reviews Review[]
+  reviews     Review[]
 
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
 }
 
 model Review {
-  id      String @id @default(uuid())
-  rating  Int
-  comment String
+  id          String   @id @default(uuid())
+  rating      Int
+  comment     String
 
-  listingId String
-  listing   Listing @relation(
-    fields: [listingId],
-    references: [id],
-    onDelete: Cascade    
-  )
+  listingId   String
+  listing     Listing  @relation(fields: [listingId], references: [id], onDelete: Cascade)
 
-  authorId String
-  author   User @relation(fields: [authorId], references: [id])
+  authorId    String
+  author      User     @relation(fields: [authorId], references: [id])
 
-  createdAt DateTime @default(now())
+  createdAt   DateTime @default(now())
 }
 
 model User {
-  id       String  @id @default(uuid())
-  username String?
-  email    String  @unique
-  password String
+  id          String    @id @default(uuid())
+  username    String?
+  email       String    @unique
+  password    String
 
-  listings Listing[]
-  reviews  Review[]
+  listings    Listing[]
+  reviews     Review[]
 
-  createdAt DateTime @default(now())
+  createdAt   DateTime  @default(now())
 }
