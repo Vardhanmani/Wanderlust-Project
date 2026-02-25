@@ -1,0 +1,148 @@
+<% layout("/layout/boilerplate") %>
+
+<div class="row mt-3">
+  <div class="col-6 offset-3">
+
+    <!-- TITLE -->
+    <h3><%= listing.title %></h3>
+
+    <!-- OWNER -->
+    <% if (listing.owner && listing.owner.username) { %>
+      <p><b>Owner:</b> <%= listing.owner.username %></p>
+    <% } %>
+
+    <!-- EDIT / DELETE (ONLY OWNER) -->
+    <% if (currentUser && listing.owner && listing.owner.id === currentUser.id) { %>
+      <a href="/listing/<%= listing.id %>/edit" class="btn btn-warning mb-2">
+        Edit
+      </a>
+
+      <form method="POST"
+            action="/listing/<%= listing.id %>?_method=DELETE"
+            style="display:inline;">
+        <button class="btn btn-danger mb-2">Delete</button>
+      </form>
+    <% } %>
+  </div>
+
+  <!-- LISTING CARD -->
+  <div class="card col-6 offset-3 listing-card mt-3">
+    <% if (listing.imageUrl) { %>
+      <img
+        src="<%= listing.imageUrl %>"
+        class="card-img-top show-img"
+        alt="listing-image"
+        style="height: 20rem; object-fit: cover;"
+      >
+    <% } else { %>
+      <img
+        src="https://via.placeholder.com/500x300?text=No+Image"
+        class="card-img-top show-img"
+        alt="listing-image"
+        style="height: 20rem; object-fit: cover;"
+      >
+    <% } %>
+
+    <div class="card-body">
+      <p class="card-text">
+        <i><%= listing.description %></i><br><br>
+        <b>&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") : 0 %></b> / night <br>
+        <%= listing.location %>, <%= listing.country %>
+      </p>
+    </div>
+  </div>
+
+  <!-- REVIEW SECTION -->
+  <div class="col-6 offset-3 mt-4">
+    <hr>
+
+    <!-- REVIEW FORM -->
+    <% if (currentUser) { %>
+      <h4>Leave a Review</h4>
+
+      <form action="/listing/<%= listing.id %>/reviews"
+            method="POST"
+            novalidate
+            class="needs-validation">
+
+        <div class="mb-3">
+          <label class="form-label">Rating</label>
+          <input type="range"
+                 min="1"
+                 max="5"
+                 name="review[rating]"
+                 class="form-range"
+                 required>
+        </div>
+
+
+
+        <div class="mb-3">
+          <label class="form-label">Comment</label>
+          <textarea name="review[comment]"
+                    rows="4"
+                    class="form-control"
+                    required></textarea>
+          <div class="invalid-feedback">
+            Please enter a comment.
+          </div>
+        </div>
+
+        <button class="btn btn-outline-dark">Submit</button>
+      </form>
+    <% } else { %>
+      <p>
+        <a href="/login">Login</a> to leave a review.
+      </p>
+    <% } %>
+
+    <hr>
+
+    <!-- REVIEWS LIST -->
+    <% if (listing.reviews && listing.reviews.length > 0) { %>
+      <h5>All Reviews</h5>
+
+      <div class="row">
+        <% for (let review of listing.reviews) { %>
+          <div class="col-md-6 col-lg-5 mb-3">
+            <div class="card h-100 ms-2">
+              <div class="card-body">
+
+                <!-- REVIEW AUTHOR -->
+                <h6 class="card-title">
+                  <%= review.author ? review.author.username : "Unknown User" %>
+                </h6>
+
+                <!-- REVIEW COMMENT -->
+                <p class="card-text small mb-2">
+                  <%= review.comment %>
+                </p>
+
+                <!-- RATING -->
+                <p class="card-text">
+                  <% for (let i = 0; i < review.rating; i++) { %>
+                    ⭐
+                  <% } %>
+               
+              </div>
+
+              <!-- DELETE REVIEW (ONLY REVIEW OWNER) -->
+              <% if (currentUser && review.author && review.author.id === currentUser.id) { %>
+                <form class="mb-3 ms-3"
+                      action="/listing/<%= listing.id %>/reviews/<%= review.id %>?_method=DELETE"
+                      method="POST">
+                  <button class="btn btn-sm btn-dark">Delete</button>
+                </form>
+              <% } %>
+
+            </div>
+          </div>
+        <% } %>
+      </div>
+    <% } else { %>
+      <p class="text-muted">
+        No reviews yet. Be the first to add one!
+      </p>
+    <% } %>
+  </div>
+</div>
